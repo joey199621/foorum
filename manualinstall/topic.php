@@ -14,7 +14,8 @@
 
 
 	// get topic
-	$stmt = $db->prepare("SELECT * FROM topic WHERE id = :id");
+	$stmt = $db->prepare("SELECT topic.*, users.pseudo FROM topic
+	INNER JOIN users ON author = users.id WHERE topic.id = :id");
 	$stmt->bindValue(":id", $id, PDO::PARAM_INT);
 	$stmt->execute();
 	$topic = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -62,7 +63,8 @@
 	$offset = $page * MESSAGES_PER_PAGE - MESSAGES_PER_PAGE;
 	
 	// get messages
-	$stmt = $db->prepare("SELECT * FROM topic_message WHERE topic_id = :topic_id ORDER BY message_date LIMIT :l OFFSET :o");
+	$stmt = $db->prepare("SELECT topic_message.*, users.pseudo FROM topic_message
+	INNER JOIN users ON author = users.id WHERE topic_id = :topic_id ORDER BY message_date LIMIT :l OFFSET :o");
 	$stmt->bindValue(":topic_id", $id, PDO::PARAM_INT);
 	$stmt->bindValue(":l", MESSAGES_PER_PAGE, PDO::PARAM_INT);
 	$stmt->bindValue(":o", $offset, PDO::PARAM_INT);
@@ -102,8 +104,8 @@
 		<div id="topicTitle">
 			<h1><?=$topic["title"]?></h1>
 			<div>
-				<p>By User</p>
-				<p>At 1h03</p>
+				<p>By By <?=$topic["pseudo"]?></p>
+				<p>At <?=$topic["date_topic"]?></p>
 			</div>
 		</div>
 		<?php 
@@ -112,8 +114,8 @@
 				?>
 				<div class="topicMessage <?php if($key % 2 <> 0) echo "even"; ?>">
 					<div class="topicMessageInfos">
-						<p>By User<p>
-						<p>At this time</p>
+						<p>By <?=$message["pseudo"]?><p>
+						<p>At <?=$message["message_date"]?></p>
 					</div>
 					<div class="topicMessageMain">
 						<?=$message["content"]?>
