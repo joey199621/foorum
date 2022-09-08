@@ -1,0 +1,40 @@
+header {
+	padding: 10px;
+}
+#headerBottom {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+#headerTop {
+	display: flex;
+	justify-content: space-between;
+}
+#loginForm {
+	width: calc(500px - 40px);
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	margin-top: 10px;
+}
+#loginForm input {
+	border-radius: 4px;
+	border: 1px solid grey;
+	margin-bottom: 5px;
+}
+#loginForm button {
+	align-self: flex-end;
+}
+.fluid {
+	width: calc(1000px - 40px);
+	padding: 20px;
+	margin: auto;
+}
+
+@media screen and (max-width: 1000px)
+{
+	.fluid {
+		width: calc(100% - 40px);
+	}
+}
