@@ -3,12 +3,14 @@ Generic PHP + MySQL forum
 
 Basic HTML/CSS forum with PHP and MySQL backend.
 
-Includes:
+Will include:
 
 - user registration / login
 - topic categories (1 level)
 - search
 - delete / edit messages
+- multilanguage support
+- themes support
 
 and so on
 
