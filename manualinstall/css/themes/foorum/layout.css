@@ -31,10 +31,43 @@ header {
 	padding: 20px;
 	margin: auto;
 }
-
+#topic {
+	margin-top: 10px;
+}
+#topicTitle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.topicMessage {
+	padding: 10px;
+	display: flex;
+}
+.topicMessageInfos {
+	width: 200px;
+}
+.topicMessageMain {
+	flex: 1;
+}
+#topicReply {
+	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+}
+#topicReply textarea {
+	resize: none;
+	height: 100px;
+}
+#topicReply button {
+	margin-top: 5px;
+	align-self: flex-end;
+}
 @media screen and (max-width: 1000px)
 {
 	.fluid {
 		width: calc(100% - 40px);
+	}
+	.topicMessage {
+		flex-direction: column;
 	}
 }

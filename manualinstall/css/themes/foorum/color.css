@@ -5,6 +5,16 @@ header {
 	background: orange;
 }
 #loginForm {
-	
+
 	background: white;
+}
+
+#topic {
+	background: white;
+}
+.topicMessage {
+	background: white;
+}
+.topicMessage.even {
+	background: lightgray;
 }

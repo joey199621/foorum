@@ -1,4 +1,4 @@
 <?php 
-	define("MESSAGES_PER_PAGE", 25);
+	define("MESSAGES_PER_PAGE", 10);
 
 ?>

@@ -24,12 +24,34 @@
 		die();
 	}
 
+
+
+
 	// count messages on this topic
 	$stmt = $db->prepare("SELECT count(*) c FROM topic_message WHERE topic_id = :id");
 	$stmt->bindValue(":id", $id, PDO::PARAM_INT);
 	$stmt->execute();
 
 	$count = $stmt->fetch(PDO::FETCH_ASSOC)["c"];
+
+
+	// add a reply. need to be logged in
+
+	if(loggedIn() && !$topic["locked"] && isset($_POST['reply']) && !empty($_POST['reply'])
+	&& isset($_POST["csrf"]) && isset($_SESSION["token"]) && $_POST['csrf'] == $_SESSION['token'])
+	{
+		$stmt = $db->prepare("INSERT INTO topic_message (topic_id, author, content, lang) VALUES (:topic_id, :author, :content, 'en-US')");
+		$stmt->bindValue(":topic_id", $id, PDO::PARAM_INT);
+		$stmt->bindValue(":author", $_SESSION['user_id'], PDO::PARAM_INT);
+		$stmt->bindValue(":content", $_POST['reply']);
+		$stmt->execute();
+
+		// prevent resend data, redirect to last page
+		$lastPage = ceil(($count+1) / MESSAGES_PER_PAGE);
+
+		header("Location:topic.php?id=".$id."&page=".$lastPage);
+		die();
+	}
 
 	$page = 1;
 	
@@ -56,7 +78,9 @@
 		header("Location:index.php");
 		die();
 	}
-	// print_r($messages);
+
+	$_SESSION['token'] = bin2hex(random_bytes(32));
+
 ?>
 
 <!DOCTYPE html>
@@ -74,17 +98,38 @@
 <body>
 	<?php include("includes/header.php"); ?>
 
-	<div class="fluid">	
-		<h1><?=$topic["title"]?></h1>
+	<div class="fluid" id="topic">
+		<div id="topicTitle">
+			<h1><?=$topic["title"]?></h1>
+			<div>
+				<p>By User</p>
+				<p>At 1h03</p>
+			</div>
+		</div>
 		<?php 
-			foreach($messages as $message)
+			foreach($messages as $key => $message)
 			{
 				?>
-				<p><?=$message["content"]?></p>
+				<div class="topicMessage <?php if($key % 2 <> 0) echo "even"; ?>">
+					<div class="topicMessageInfos">
+						<p>By User<p>
+						<p>At this time</p>
+					</div>
+					<div class="topicMessageMain">
+						<?=$message["content"]?>
+					</div>
+
+					
+				</div>
 				<?php
 			}
 		?>
 
+		<form method="POST" action="topic.php?id=<?=$id?>" id="topicReply">
+			<textarea name="reply"></textarea>
+			<button type="submit">send</button>
+			<input type="hidden" name="csrf" value="<?=$_SESSION["token"]?>">
+		</form>
 	</div>
 
 	

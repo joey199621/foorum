@@ -5,7 +5,7 @@ Higly customizable HTML/CSS forum with PHP and MySQL backend.
 
 Will include:
 
-- A two-click deployer. No need technical knowledge to deploy.
+- A two-click deployer. No need technical knowledge to deploy.	
 - user registration / login with email verification
 - topic categories (1 level)
 - search
@@ -15,6 +15,7 @@ Will include:
 - admin panel (manage users, categories, topics, theme, languages)
 - csrf and xss protection for forms
 - profile with picture
+- fully responsive and customizable layout
 
 and so on
 
