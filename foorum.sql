@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 08, 2022 at 05:04 PM
+-- Generation Time: Sep 08, 2022 at 06:45 PM
 -- Server version: 10.6.7-MariaDB-2ubuntu1.1
 -- PHP Version: 8.1.2
 
@@ -106,7 +106,8 @@ CREATE TABLE `topic` (
 --
 
 INSERT INTO `topic` (`id`, `author`, `title`, `lang`, `date_topic`, `category_id`, `locked`, `solved`) VALUES
-(1, 1, 'test topic', 'en-US', '2022-09-08 15:42:45', 1, 0, 0);
+(7, 1, 'Hello everybody', 'en-US', '2022-09-08 18:44:27', 1, 0, 0),
+(8, 1, 'Another topic', 'en-US', '2022-09-08 18:44:55', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -128,7 +129,11 @@ CREATE TABLE `topic_message` (
 --
 
 INSERT INTO `topic_message` (`id`, `author`, `message_date`, `content`, `lang`, `topic_id`) VALUES
-(1, 1, '2022-09-08 15:45:42', 'Test topic message', 'en-US', 1);
+(28, 1, '2022-09-08 18:44:27', 'This is a test topic, please ignore it', 'en-US', 7),
+(29, 1, '2022-09-08 18:44:40', 'Oh! And this is a test reply.', 'en-US', 7),
+(30, 1, '2022-09-08 18:44:45', 'Ok, cool.', 'en-US', 7),
+(31, 1, '2022-09-08 18:44:55', 'YEAH!', 'en-US', 8),
+(32, 1, '2022-09-08 18:45:14', 'up... this topic should be bumped now', 'en-US', 7);
 
 -- --------------------------------------------------------
 
@@ -139,15 +144,16 @@ INSERT INTO `topic_message` (`id`, `author`, `message_date`, `content`, `lang`, 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(500) NOT NULL
+  `password` varchar(500) NOT NULL,
+  `pseudo` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`) VALUES
-(1, 'test@email.com', '$2y$10$6WXSxb56E9g2l/OL/D4aMuXeetUApNwkhiIJckC160HZJVUbSt2le');
+INSERT INTO `users` (`id`, `email`, `password`, `pseudo`) VALUES
+(1, 'test@email.com', '$2y$10$6WXSxb56E9g2l/OL/D4aMuXeetUApNwkhiIJckC160HZJVUbSt2le', 'TestUser');
 
 --
 -- Indexes for dumped tables
@@ -220,13 +226,13 @@ ALTER TABLE `foorum_setting_value`
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `topic_message`
 --
 ALTER TABLE `topic_message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `users`
