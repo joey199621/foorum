@@ -1,4 +1,6 @@
 <?php
+	header("Location:autoinstall");
+	die();
 	require_once("../foorum_config.php");
 	session_start();
 

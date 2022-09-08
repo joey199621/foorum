@@ -1,4 +1,20 @@
-<?php 
+<?php
+	if ( ! is_writable(dirname(__FILE__))) {
+		?>
+		<b style="color:red;">Autoinstall can not continue. The current directory is not writeable.</b>
+		<p> This script cannot write to the current directory, hence setup cannot continue. </p>
+		<p>Please make this directory writeable using the commands (for linux):</p>
+		<code># chown -R $USER:www-data <?=dirname(dirname(__FILE__))?></code>
+		<br>
+		<code># chmod -R 755 <?=dirname(dirname(__FILE__))?></code>
+		<br>
+		
+		<?php
+		die();	
+	}
+	// file_put_contents("test", "test");
+	// die();
+
 	// this script will prompt for settings and setup automatically on your server
 	
 
@@ -22,6 +38,10 @@
 	</style>
 </head>
 <body>	
+
+
+	<form action="postSetup.php" method="POST">
+	<h1>Welcome to Autoinstall!</h1>
 	<p>Hello and welcome aboard! Thanks for choosing our open source solution.</p>
 	<p>This setup will guide you flawlessly through the installation of your own Foorum.</p>
 	<p>We only assume the following requirements: latest version of Apache, PHP and MySQL installed, and sufficient rights on the database user to create a database, create table, select, update and delete rows.</p>
@@ -31,14 +51,13 @@
 	<fieldset>
 		<legend>Database</legend>
 		<p>1. The database host. It is generally an IP address or a hostname. Let it to localhost if MySQL is installed locally.</p>
-		<input onkeyup="disableSucceed(event)" id="dbhostInput" type="text" name="" placeholder="Database host" value="localhost">
+		<input onkeyup="disableSucceed(event)" id="dbhostInput" type="text" name="dbhost" placeholder="Database host" value="localhost">
 		<p>2. The database user and password.</p>
-		<input onkeyup="disableSucceed(event)" id="dbuserInput" type="text" name="" placeholder="MySQL user" value="" placeholder="MySQL user">
-		<input onkeyup="disableSucceed(event)" id="dbpasswordInput" type="password" name="" placeholder="MySQL password" >
+		<input onkeyup="disableSucceed(event)" id="dbuserInput" type="text" name="dbuser" placeholder="MySQL user" value="" placeholder="MySQL user">
+		<input onkeyup="disableSucceed(event)" id="dbpasswordInput" type="password" name="dbpass" placeholder="MySQL password" >
 
 		<p>
-			<button id="testConnectionBtn">Test connection</button>
-			<button disabled id="createDbBtn">Create database</button>
+			<button type="button" id="testConnectionBtn">Test connection</button>
 			<p>Please test database connection</p>
 		</p>
 
@@ -57,15 +76,14 @@
 		<legend>Admin account</legend>
 		<p>An admin account will be created. This is the super user account. You can create more admins later.</p>
 		<p>Please create a password for the user 'admin':</p>
-		<input onkeyup="checkPwd(event)" type="password" id="pwd1Input" name="pwd1" placeholder="Type a password">
-		<input onkeyup="checkPwd(event)" type="password" id="pwd2Input" name="pwd2" placeholder="Confirm password">
+		<input onkeyup="checkPwd(event)" type="password" id="pwd1Input" name="adminpass" placeholder="Type a password">
+		<input onkeyup="checkPwd(event)" type="password" id="pwd2Input" placeholder="Confirm password">
 
 		<p>Important: if you forget the password, you will need to tamper with the database. This is explained in the documentation.</p>
 		
 	</fieldset>
-	<form >
 		
-		<button disabled id="lgBtn">Let's go</button>
+		<button disabled id="lgBtn" type="submit">Let's go</button>
 	</form>
 
 	<script type="text/javascript">
@@ -74,7 +92,6 @@
 			else lgBtn.disabled = true
 		}
 		function disableSucceed(event) {
-			createDbBtn.disabled = true
 			testSucceed = false
 			lgBtn.disabled = true
 			checkPwd(null)
@@ -141,7 +158,6 @@
 
 
 			      		dbErrorP.innerText = "Connection success!"
-			      		createDbBtn.disabled = false
 			      		testSucceed = true
 			      		checkPwd(null)
 					}
