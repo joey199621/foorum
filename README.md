@@ -1,16 +1,20 @@
 # foorum
 Generic PHP + MySQL forum
 
-Basic HTML/CSS forum with PHP and MySQL backend.
+Higly customizable HTML/CSS forum with PHP and MySQL backend.
 
 Will include:
 
-- user registration / login
+- A two-click deployer. No need technical knowledge to deploy.
+- user registration / login with email verification
 - topic categories (1 level)
 - search
 - delete / edit messages
 - multilanguage support
 - themes support
+- admin panel (manage users, categories, topics, theme, languages)
+- csrf and xss protection for forms
+- profile with picture
 
 and so on
 
