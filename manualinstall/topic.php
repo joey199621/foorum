@@ -125,11 +125,28 @@
 			}
 		?>
 
+		<?php 
+			if(!loggedIn()) {
+				?>
+				<p>Requires login</p>
+				<?php
+			}
+			else if($topic["locked"]) {
+				?>
+				<p>Topic is locked.</p>
+				<?php
+			}
+			else {
+				?>
 		<form method="POST" action="topic.php?id=<?=$id?>" id="topicReply">
 			<textarea name="reply"></textarea>
 			<button type="submit">send</button>
 			<input type="hidden" name="csrf" value="<?=$_SESSION["token"]?>">
 		</form>
+				<?php
+			}
+		?>
+		
 	</div>
 
 	

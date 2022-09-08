@@ -62,6 +62,16 @@ header {
 	margin-top: 5px;
 	align-self: flex-end;
 }
+
+#topics {
+	display: flex;
+	flex-direction: column;
+}
+#newTopicLink {
+	margin-bottom: 20px;
+	display: flex;
+	font-weight: bold;
+}
 @media screen and (max-width: 1000px)
 {
 	.fluid {

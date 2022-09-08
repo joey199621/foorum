@@ -6,7 +6,17 @@
 
 	$topics = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-	
+	// get topics by last message date
+	$stmt = $db->prepare("SELECT topic.*, 
+		(SELECT MAX(message_date) FROM topic_message WHERE topic_id = topic.id
+			) as m 
+
+
+		FROM topic
+		ORDER BY m DESC ");
+	$stmt->execute();
+
+	$topics = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -26,6 +36,7 @@
 	<?php include("includes/header.php"); ?>
 
 	<div class="fluid">
+		<a id="newTopicLink" href="newtopic.php">+ New topic</a>
 		<div id="topics">
 		
 			<?php 
