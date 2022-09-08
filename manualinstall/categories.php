@@ -25,13 +25,14 @@
 <body>
 	<?php include("includes/header.php"); ?>
 
-	<div id="topics">
+	<div id="topics" class="fluid">
+		<h1>Categories</h1>
 		
 		<?php 
 			if($categories) {
 				foreach ($categories as $categorie) {
 					?>
-					<a href="#"><?=$categorie["name_en-US"]?></a>
+					<a href="category.php?id=<?=$categorie["id"]?>"><?=$categorie["name_en-US"]?></a>
 					<?php
 				}
 			}
